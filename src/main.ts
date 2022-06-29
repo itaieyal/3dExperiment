@@ -12,7 +12,6 @@ import {
   Scene,
 } from "three";
 
-import * as dat from "dat.gui";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { PerspectiveCamera } from "three";
 import { WebGL1Renderer } from "three";
@@ -99,8 +98,9 @@ for (let i = 0; i < array.length; i += 3) {
   randomValues.push((Math.random() - 0.5) * 8);
   randomValues.push((Math.random() - 0.5) * 8);
 }
-
+//@ts-ignore
 planeMesh.geometry.attributes.position.randomValues = randomValues;
+//@ts-ignore
 planeMesh.geometry.attributes.position.originalPosition =
   planeMesh.geometry.attributes.position.array;
 
@@ -125,12 +125,16 @@ function animate() {
   frame += 0.01;
   requestAnimationFrame(animate);
   renderer.render(scene, camera);
+  //@ts-ignore
   raycaster.setFromCamera(mouse, camera);
 
+  //@ts-ignore
   const { array, originalPosition, randomValues } =
     planeMesh.geometry.attributes.position;
   for (let i = 0; i < array.length; i += 3) {
+    //@ts-ignore
     array[i] = originalPosition[i] + Math.cos(frame + randomValues[i]) * 0.005;
+    //@ts-ignore
     array[i + 1] =
       originalPosition[i + 1] + Math.sin(frame + randomValues[i + 1]) * 0.005;
   }
@@ -142,18 +146,27 @@ function animate() {
     const mesh = intersects[0].object as Mesh;
     const { color } = mesh.geometry.attributes;
     // Vertex 1
+    //@ts-ignore
     color.setX(intersects[0].face.a, 0.1);
+    //@ts-ignore
     color.setY(intersects[0].face.a, 0.5);
+    //@ts-ignore
     color.setZ(intersects[0].face.a, 1);
 
     // Vertex 2
+    //@ts-ignore
     color.setX(intersects[0].face.b, 0.1);
+    //@ts-ignore
     color.setY(intersects[0].face.b, 0.5);
+    //@ts-ignore
     color.setZ(intersects[0].face.b, 1);
 
     // Vertex 3
+    //@ts-ignore
     color.setX(intersects[0].face.c, 0.1);
+    //@ts-ignore
     color.setY(intersects[0].face.c, 0.5);
+    //@ts-ignore
     color.setZ(intersects[0].face.c, 1);
     mesh.geometry.attributes.color.needsUpdate = true;
     const initialColor = {
@@ -172,18 +185,27 @@ function animate() {
       g: initialColor.g,
       b: initialColor.b,
       onUpdate: () => {
+        //@ts-ignore
         color.setX(intersects[0].face.a, hoverColor.r);
+        //@ts-ignore
         color.setY(intersects[0].face.a, hoverColor.g);
+        //@ts-ignore
         color.setZ(intersects[0].face.a, hoverColor.b);
 
         // Vertex 2
+        //@ts-ignore
         color.setX(intersects[0].face.b, hoverColor.r);
+        //@ts-ignore
         color.setY(intersects[0].face.b, hoverColor.g);
+        //@ts-ignore
         color.setZ(intersects[0].face.b, hoverColor.b);
 
         // Vertex 3
+        //@ts-ignore
         color.setX(intersects[0].face.c, hoverColor.r);
+        //@ts-ignore
         color.setY(intersects[0].face.c, hoverColor.g);
+        //@ts-ignore
         color.setZ(intersects[0].face.c, hoverColor.b);
       },
     });
